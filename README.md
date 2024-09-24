@@ -1,5 +1,6 @@
-# alu-shell Project
+# ALU Shell Project
 
-## 0-iam_betty
-This script switches the current user to the user `betty`.
+## Script 0-iam_betty
+This script switches the current user to `betty` using the `su` command.
+
 
