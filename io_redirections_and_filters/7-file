@@ -1,5 +1,2 @@
 #!/bin/bash
-# Create a file named exactly '\*\\'"Best School"\'\\*$\?\*\*\*\*\*:)'
-# and add the text "Best School" followed by a new line.
-
 echo "Best School" > '\*\\'"Best School"\'\\*$\?\*\*\*\*\*:)'
