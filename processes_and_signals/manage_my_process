@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
-#Writes a message to a file
-while :
-do
-	echo "I am alive!" >> /tmp/my_process
-	sleep 2
+# Script that writes "I am alive!" to /tmp/my_process every 2 seconds
+
+# Use a subshell to avoid an infinite loop impacting the main shell
+while true; do
+    echo "I am alive!" >> /tmp/my_process
+    sleep 2
 done
