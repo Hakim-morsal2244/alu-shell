@@ -1,34 +1,50 @@
 #!/usr/bin/env bash
-#Bash script that creates a subprocess
-. /lib/lsb/init-functions
+# Init script to manage manage_my_process
 
-PIDFILE=/var/run/my_process.pid
+PIDFILE="/var/run/my_process.pid"
 
 start() {
+    if [ -f "$PIDFILE" ]; then
+        echo "manage_my_process is already running."
+        exit 1
+    fi
+
+    # Start the manage_my_process in the background
     ./manage_my_process &
     echo "$!" > "$PIDFILE"
+    echo "manage_my_process started"
 }
 
 stop() {
-    sudo kill -15 "$(cat "$PIDFILE")" && rm -f "$PIDFILE"
+    if [ ! -f "$PIDFILE" ]; then
+        echo "manage_my_process is not running."
+        exit 1
+    fi
+
+    kill -15 "$(cat "$PIDFILE")" && rm -f "$PIDFILE"
+    echo "manage_my_process stopped"
+}
+
+restart() {
+    stop
+    start
+    echo "manage_my_process restarted"
 }
 
 case "$1" in 
     start)
-       start
-       echo "manage_my_process started"
-       ;;
+        start
+        ;;
     stop)
-       stop
-       echo "manage_my_process stopped"
-       ;;
+        stop
+        ;;
     restart)
-       stop
-       start
-       echo "manage_my_process restarted"
-       ;;
+        restart
+        ;;
     *)
-       echo "Usage: manage_my_process {start|stop|restart}"
+        echo "Usage: manage_my_process {start|stop|restart}"
+        exit 1
+        ;;
 esac
 
 exit 0
